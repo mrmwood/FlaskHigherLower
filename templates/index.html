@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+      <title>Website Test</title>
+  </head>
+  <body>
+
+    <h1>Choose the range of numbers between 1 and 6</h1>
+
+      <form action="/" method="post">
+          <input name="lower" placeholder="Lower"/>
+          <input name="upper" placeholder="Upper"/>
+          <button type="submit">
+              Submit
+          </button>
+      </form>
+
+      <p>{{ error }}</p>
+
+        <!-- Image {{ img }} -->
+        {% if img_load %}
+          Your random number is {{ number }}
+          <br>
+          <img src="{{ url_for('static', filename=img )}}"/>
+        {% endif %}
+
+  </body>
+</html>
