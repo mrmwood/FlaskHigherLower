@@ -37,3 +37,21 @@ def page2():
 
     else: #get
         return render_template("page2.html")
+
+
+#rendering the HTML page which has the button
+@app.route('/json',methods=["GET","POST"])
+def json():
+    if request.method == "GET":
+        return render_template("json.html")
+    elif request.method == "POST":
+        import json
+        # # Opening JSON file
+        with open('data.json') as json_file:
+            data = json.load(json_file)
+            n = randint(1,10)
+            number = data[str(n)]
+        #number = "HI"
+        return render_template("json.html", number=number)
+    else:
+        return render_template("page2.html")

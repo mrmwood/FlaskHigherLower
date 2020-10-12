@@ -1,0 +1,25 @@
+import json
+
+# a Python object (dict):
+x = {
+  1: "Write a Python function to find the Max of three numbers",
+  2: "Write a Python function to sum all the numbers in a list",
+  3: "Write a Python function to multiply all the numbers in a list",
+  4: "Write a Python program to reverse a string",
+  5: "Write a Python function to calculate the factorial of a number (a non-negative integer). The function accepts the number as an argument",
+  6: "Write a Python function to check whether a number is in a given range",
+  7: "Write a Python function that accepts a string and calculate the number of upper case letters and lower case letters",
+  8: "Write a Python function that takes a list and returns a new list with unique elements of the first list",
+  9: "Write a Python function that takes a number as a parameter and check the number is prime or not",
+  10: "Write a Python program to print the even numbers from a given list"
+}
+
+# convert into JSON:
+#y = json.dumps(x)
+
+# the result is a JSON string:
+#print(y)
+
+# write to text file
+with open('data.json', 'w') as outfile:
+    json.dump(x, outfile)
