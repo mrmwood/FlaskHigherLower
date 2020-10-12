@@ -50,8 +50,8 @@ def json():
         with open('data.json') as json_file:
             data = json.load(json_file)
             n = randint(1,10)
-            number = data[str(n)]
+            task = data[str(n)]
         #number = "HI"
-        return render_template("json.html", number=number)
+        return render_template("json.html", task=task)
     else:
         return render_template("page2.html")
