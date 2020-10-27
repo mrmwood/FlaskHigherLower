@@ -2,48 +2,21 @@
 #> set FLASK_APP=application
 #> flask run
 
+#FLASK - standard
+#render_template - allows us to generate HTML using Jinja2 in our templates
+#request - By default, a route only answers to GET requests. You can use
+###the methods argument of the route() decorator to handle different HTTP methods.
+#url_for - required for gneerating URL's for static files
+
 from flask import Flask, render_template, request, url_for
 from random import randint
 
 app = Flask(__name__)
 
-@app.route("/",methods=["GET","POST"])
-def index():
+@app.route('/',methods=["GET","POST"])
+def random_task():
     if request.method == "GET":
-        return render_template("index.html", img_load=False)
-
-
-    else: #POST
-        while True:
-            try:
-                lower = request.form.get("lower")
-                upper = request.form.get("upper")
-                if int(lower) < 1 or int(upper) > 6:
-                    error="Error: Numbers must be between 1 and 6"
-                    return render_template("index.html", img_load=False, error=error)
-                else:
-                    number = randint(int(lower),int(upper))
-                    img = str(number)+".JPG"
-                    error=""
-                    return render_template("index.html", number=number, img=img, lower=1, upper=1, img_load=True, error=error)
-            except Exception as e:
-                continue
-
-@app.route("/page2",methods=["GET","POST"])
-def page2():
-    if request.method == "POST":
-        #name = request.form.get("name")
-        return render_template("index.html", name="Mark")
-
-    else: #get
-        return render_template("page2.html")
-
-
-#rendering the HTML page which has the button
-@app.route('/json',methods=["GET","POST"])
-def json():
-    if request.method == "GET":
-        return render_template("json.html")
+        return render_template("index.html")
     elif request.method == "POST":
         import json
         # # Opening JSON file
@@ -51,7 +24,33 @@ def json():
             data = json.load(json_file)
             n = randint(1,10)
             task = data[str(n)]
-        #number = "HI"
-        return render_template("json.html", task=task)
+            for key, value in data.items():
+                if value == task:
+                    id = key
+        return render_template("index.html", task=task, id=id)
     else:
-        return render_template("page2.html")
+        return render_template("error.html")
+
+
+@app.route('/sort',methods=["GET","POST"])
+def sort():
+    if request.method == "GET":
+        return render_template("bubble.html")
+    elif request.method == "POST":
+        #captures all form data 'names' as a Python dictionary
+        #req = request.form
+        #print(req)
+        #gets the value in the form with the 'name' the_list
+        _list = request.form["the_list"]
+        if _list[-1] == ',':
+            _list = _list[:-1]
+        _list = [int(x.strip()) for x in _list.split(',')]
+
+        n = len(_list)
+        for i in range(n-1):
+            for j in range(0, n-i-1):
+                if _list[j] > _list[j+1] :
+                    _list[j], _list[j+1] = _list[j+1], _list[j]
+        return render_template("bubble.html", _list = _list)
+    else:
+        return render_template("error.html")

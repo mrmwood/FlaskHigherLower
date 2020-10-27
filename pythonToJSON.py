@@ -1,7 +1,7 @@
 import json
 
 # a Python object (dict):
-x = {
+challenges = {
   1: "Write a Python function to find the Max of three numbers",
   2: "Write a Python function to sum all the numbers in a list",
   3: "Write a Python function to multiply all the numbers in a list",
@@ -15,11 +15,11 @@ x = {
 }
 
 # convert into JSON:
-#y = json.dumps(x)
+#content = json.dumps(challenges, indent=4)
 
 # the result is a JSON string:
-#print(y)
+#print(content)
 
 # write to text file
 with open('data.json', 'w') as outfile:
-    json.dump(x, outfile)
+    json.dump(challenges, outfile, indent=4, sort_keys=True)

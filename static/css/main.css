@@ -1,0 +1,15 @@
+/* .mt-5 {
+  margin-top: ($spacer * 3) !important;
+} */
+
+svg {
+  fill: #fff;
+}
+
+svg:hover {
+  fill: #17a2b8;
+}
+
+html {
+    font-size: 12px;
+}

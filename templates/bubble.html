@@ -21,7 +21,7 @@
                       <!-- ROW 1 -->
                       <div class="row table-dark">
                         <div class="col-12 text-center">
-                          <h1 class="display-4">Click the button below to generate a random task for you to complete</h1>
+                          <h1 class="display-4">Enter a list of values seperated by commas</h1>
 
                         </div>
                       </div>
@@ -31,11 +31,27 @@
 
                           <div class="col-12 text-center">
 
-                            <form action="/" method="post">
-                                <button type="submit" class="btn btn-info">
-                                    SHOW CHALLENGE
-                                </button>
+                            <form action="/sort" method="post">
+                              <div class="form-group">
+                                <input class="form-control" type="text" placeholder="45,12,9,73,20" name="the_list">
+                                <small class="form-text text-muted">Enter a list of numbers seperated by commas e.g. 45,12,9,73,20</small>
+                              </div>
+                              <button type="submit" class="btn btn-info">Submit</button>
                             </form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
                           </div>
 
@@ -45,12 +61,12 @@
                         <div class="row m-5">
                           <!-- COL 1 -->
                             <div class="col-3 text-center bg-info">
-                                  <h1 class="display-4 text-light">{{ id }}</h1>
+                                  <h1 class="display-4 text-light">The sorted list is</h1>
                             </div>
                             <!-- COL 2 -->
                             <div class="col-9 text-left bg-light">
 
-                                  <h1 class="display-4 text-info">{{ task }}</h1>
+                                  <h1 class="display-4 text-info">{{ _list }}</h1>
                             </div>
                           </div>
 

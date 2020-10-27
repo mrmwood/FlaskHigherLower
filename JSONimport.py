@@ -2,9 +2,6 @@ import json
 # Opening JSON file
 with open('data.json') as json_file:
     data = json.load(json_file)
-
-    # for reading nested data [0] represents
-    # the index value of the list
     print(data['1'])
 
     # for printing the key-value pair of
