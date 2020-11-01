@@ -40,22 +40,13 @@
                             </form>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
                           </div>
 
                         </div>
+
+
+                        {% if _list %}
+
 
                       <!-- ROW 3 -->
                         <div class="row m-5">
@@ -81,6 +72,19 @@
                               </a>
                             </div>
                           </div>
+
+                          {% elif _error %}
+
+                          <div class="row table-dark">
+                            <div class="col-12 text-center">
+                              <h1 class="display-4 text-danger">Please Enter a Valid List</h1>
+
+                            </div>
+                          </div>
+
+                          {% else %}
+
+                          {% endif %}
 
                 </div>
 
