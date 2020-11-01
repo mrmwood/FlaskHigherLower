@@ -11,6 +11,7 @@
 from flask import Flask, render_template, request, url_for, redirect
 from random import randint
 import os
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 
@@ -70,14 +71,47 @@ def sort():
         return render_template("error.html")
 #Best practice is to put this in a configuration file but for now we will just leave it here
 app.config["IMAGE_UPLOADS"] = "C:/Users/mark.wood/github/randomTask/static/img/uploads"
+app.config["ALLOWED_IMAGE_EXTENSIONS"] = ["PNG", "JPG", "JPEG", "GIF"]
+app.config["MAX_IMAGE_FILESIZE"] = 0.5 * 1024 * 1024
+
+def allowed_image(filename):
+    if not "." in filename:
+        return False
+    ext = filename.rsplit(".",1)[1]
+
+    if ext.upper() in app.config["ALLOWED_IMAGE_EXTENSIONS"]:
+        return True
+    else:
+        return False
+
+def allowed_image_filesize(filesize):
+    if int(filesize) <= app.config["MAX_IMAGE_FILESIZE"]:
+        return True
+    else:
+        return False
+
 
 @app.route('/upload-image',methods=["GET","POST"])
 def upload_image():
     if request.method == "POST":
         if request.files:
+            if not allowed_image_filesize(request.cookies.get("filesize")):
+                print("File too big")
+                return redirect(request.url)
+            #print(request.cookies)
             #image is the 'name' of the input we used in the upload_image.html
             image = request.files["image"]
-            image.save(os.path.join(app.config["IMAGE_UPLOADS"], image.filename))
+            if image.filename == "":
+                print('Image must have a file name')
+                return redirect(request.url)
+            if not allowed_image(image.filename):
+                print("That image extension is not allowed")
+                return redirect(request.url)
+            else:
+                #sanatises the file name
+                filename = secure_filename(image.filename)
+                image.save(os.path.join(app.config["IMAGE_UPLOADS"], filename))
+
             print("image saved")
             return redirect(request.url)
 

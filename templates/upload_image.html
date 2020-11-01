@@ -11,11 +11,30 @@
   <div class="form-group">
     <label>Select image</label>
     <div class="custom-file">
-      <input type="file" class="custom-file-input" name="image" id="image">
+      <!-- the oninput Event executes a JavaScript when the user writes
+      something in an input field.
+      when you pass (this) to the JavaScript function (which I have called
+      filesize)it will pass the whole input element-->
+      <input oninput="filesize(this);" type="file" class="custom-file-input" name="image" id="image">
       <label class="custom-file-label" for="image">Select image...</label>
     </div>
   </div>
 
   <button type="submit" class="btn btn-primary">Upload Image</button>
+
+{% endblock %}
+
+{% block script %}
+
+<script>
+ function filesize(elem){
+   //to see the file size of the image uploaded
+   //in the development tools console
+   //console.log(elem.files[0].size)
+
+   //store the file size in a cookie
+   document.cookie = `filesize=${elem.files[0].size}`;
+ }
+</script>
 
 {% endblock %}
