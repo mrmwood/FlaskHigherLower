@@ -29,7 +29,7 @@ def bubble(_list):
 @app.route('/sort',methods=["GET","POST"])
 def sort():
     if request.method == "GET":
-        return render_template("bubble.html")
+        return render_template("bubble_2.html")
     elif request.method == "POST" and "the_list" in request.form:
         #captures all form data 'names' as a Python dictionary
         #req = request.form
@@ -48,9 +48,9 @@ def sort():
             _list = [int(x) for x in _list]
             _list = bubble(_list)
         else:
-            return render_template("bubble.html", _error = True)
+            return render_template("bubble_2.html", _error = True)
 
-        return render_template("bubble.html", _list = _list)
+        return render_template("bubble_2.html", _list = _list)
     else:
         return render_template("error.html")
 #Best practice is to put this in a configuration file but for now we will just leave it here
